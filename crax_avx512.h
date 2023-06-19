@@ -1,5 +1,5 @@
-#ifndef AVX512_CRAX
-#define AVX512_CRAX
+#ifndef CRAX_AVX512
+#define CRAX_AVX512
 
 #include <immintrin.h>
 
@@ -45,8 +45,8 @@
 
 
 
-REG RCON[5];
-void init_crax_rcon() {
+static REG RCON[5];
+static void init_crax_rcon() {
   RCON[0] = SET_REG(0xB7E15162);
   RCON[1] = SET_REG(0xBF715880);
   RCON[2] = SET_REG(0x38B4DA56);
@@ -54,10 +54,10 @@ void init_crax_rcon() {
   RCON[4] = SET_REG(0xBB1185EB);
 }
 
-REG RXOR_ENC; /* round xor by  i */
-REG RXOR_DEC; /* round xor by  i */
+static REG RXOR_ENC; /* round xor by  i */
+static REG RXOR_DEC; /* round xor by  i */
 
-int crax_not_inited = 1;
+static int crax_not_inited = 1;
 
 static void crax10_enc_simd(REG* xword, REG* yword, const REG* key)
 {
@@ -66,8 +66,6 @@ static void crax10_enc_simd(REG* xword, REG* yword, const REG* key)
     crax_not_inited = 0;
   }
 
-  xword[0] = XOR(xword[0], key[0]);
-  yword[0] = XOR(yword[0], key[1]);
 
   // 10 ROUNDS 
   //  xword[0] = XOR(xword[0], 0); // 0 
@@ -127,7 +125,11 @@ static void crax10_enc_simd(REG* xword, REG* yword, const REG* key)
   xword[0] = XOR(xword[0], RXOR_ENC);
   xword[0] = XOR(xword[0], key[2]);
   yword[0] = XOR(yword[0], key[3]);
-  ALZETTE(xword[0], yword[0], RCON[4]);  
+  ALZETTE(xword[0], yword[0], RCON[4]);
+
+  /* this should be at the end */
+  xword[0] = XOR(xword[0], key[0]);
+  yword[0] = XOR(yword[0], key[1]);
 }
 
 
@@ -209,7 +211,7 @@ static void crax10_dec_simd(REG* xword, REG* yword, const REG* key)
   ALZETTE_INV(xword[0], yword[0], RCON[0]);
   xword[0] = XOR(xword[0], key[0]);
   yword[0] = XOR(yword[0], key[1]);
-  /* RXOR_ENC = SET_REG(8); */
+  /* RXOR_ENC = SET_REG(0); */ // not necessary
   /* xword[0] = XOR(xword[0], RXOR_ENC); */
 
   
