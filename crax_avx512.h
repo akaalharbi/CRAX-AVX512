@@ -148,73 +148,71 @@ static void crax10_dec_simd(REG* xword, REG* yword, const REG* key)
   ALZETTE_INV(xword[0], yword[0], RCON[4]);
   xword[0] = XOR(xword[0], key[2]);
   yword[0] = XOR(yword[0], key[3]);
-  RXOR_ENC = SET_REG(9);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(9);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 8
   ALZETTE_INV(xword[0], yword[0], RCON[3]);
   xword[0] = XOR(xword[0], key[0]);
   yword[0] = XOR(yword[0], key[1]);
-  RXOR_ENC = SET_REG(8);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(8);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 7
   ALZETTE_INV(xword[0], yword[0], RCON[2]);
   xword[0] = XOR(xword[0], key[2]);
   yword[0] = XOR(yword[0], key[3]);
-  RXOR_ENC = SET_REG(7);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(7);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 6
   ALZETTE_INV(xword[0], yword[0], RCON[1]);
   xword[0] = XOR(xword[0], key[0]);
   yword[0] = XOR(yword[0], key[1]);
-  RXOR_ENC = SET_REG(6);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(6);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 5
   ALZETTE_INV(xword[0], yword[0], RCON[0]);
   xword[0] = XOR(xword[0], key[2]);
   yword[0] = XOR(yword[0], key[3]);
-  RXOR_ENC = SET_REG(5);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(5);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 4
   ALZETTE_INV(xword[0], yword[0], RCON[4]);
   xword[0] = XOR(xword[0], key[0]);
   yword[0] = XOR(yword[0], key[1]);
-  RXOR_ENC = SET_REG(4);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(4);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 3
   ALZETTE_INV(xword[0], yword[0], RCON[3]);
   xword[0] = XOR(xword[0], key[2]);
   yword[0] = XOR(yword[0], key[3]);
-  RXOR_ENC = SET_REG(3);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(3);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 2
   ALZETTE_INV(xword[0], yword[0], RCON[2]);
   xword[0] = XOR(xword[0], key[0]);
   yword[0] = XOR(yword[0], key[1]);
-  RXOR_ENC = SET_REG(2);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(2);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 1
   ALZETTE_INV(xword[0], yword[0], RCON[1]);
   xword[0] = XOR(xword[0], key[2]);
   yword[0] = XOR(yword[0], key[3]);
-  RXOR_ENC = SET_REG(1);
-  xword[0] = XOR(xword[0], RXOR_ENC);
+  RXOR_DEC = SET_REG(1);
+  xword[0] = XOR(xword[0], RXOR_DEC);
 
   // step = 0
   ALZETTE_INV(xword[0], yword[0], RCON[0]);
   xword[0] = XOR(xword[0], key[0]);
   yword[0] = XOR(yword[0], key[1]);
-  /* RXOR_ENC = SET_REG(0); */ // not necessary
-  /* xword[0] = XOR(xword[0], RXOR_ENC); */
-
-  
+  /* RXOR_DEC = SET_REG(0); */ // not necessary
+  /* xword[0] = XOR(xword[0], RXOR_DEC); */
 
   
 }
